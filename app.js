@@ -11,8 +11,8 @@ require('dotenv').config()
 
 const logger = require('./middlewares/logger')
 const timer = require('./middlewares/timer')
-
-//look for a port in my env file, if not there, go to '3000'
+app.use(timer)
+//look for a port in my env file, if not there, g  '3000'
 const port = process.env.PORT || 3000;
 
 //looking for static files
@@ -32,7 +32,7 @@ const port = process.env.PORT || 3000;
 //anytime you have a middleware that's going to run every time.
 
 // app.use(logger)
-app.use(timer)
+
 
 let users = [
     { id: '1', name: 'jd', email: 'jd@me.com', password: '123' },

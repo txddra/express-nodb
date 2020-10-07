@@ -1,6 +1,8 @@
-function timer(moment, format, next){
+const moment = require('moment')
+
+function timer(req, res, next){
 
     console.log(moment().format('MMMM Do YYYY, h:mm:ss a'));
-    next()
+    next();
 };
 module.exports = timer
