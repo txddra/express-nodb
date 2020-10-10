@@ -6,18 +6,49 @@ const express=  require('express');
 //needs to be invoked
 const app = express();
 //so other people can't see
-require('dotenv').config()
 
-
+const router = express.Router();
+require('./.gitignore/node_modules/dotenv/types').config()
+const morgan = require('morgan')
+const users = require('./models/usersArray')
 const logger = require('./middlewares/logger')
 const timer = require('./middlewares/timer')
 app.use(timer)
+app.use(morgan('dev'))
+app.use(express.json());
+app.use(express.urlencoded({extended: false}))
 //look for a port in my env file, if not there, g  '3000'
+
+const userRoutes = require('./routes/userRoutes')
 const port = process.env.PORT || 3000;
+
+//routes middleware
+app.use('/api/v1/users/', userRoutes)
+
+
 
 //looking for static files
 // app.use(express.static(path.join(__dirname, 'public')));
 
+
+// router.get('/',(req,res)=>{
+//   //removed this:
+//   // res.status(200).send('My first Express Server');
+
+//   res.status(200).json({conformation: 'success', users})
+// });
+
+
+// //get one user based on id 
+// router.get('/user/:id',(req, res)=>{
+// let foundUser =  users.filter((user)=>{
+//   if(user.id === req.params.id){
+//   return res.json({confirmation: 'success', user})
+//   }
+// })
+// if(!foundUser.length){
+// return res.status(400).json({confirmation: 'fail', message: 'User Does Not Exist'})}
+// });
 
 
 
@@ -34,13 +65,41 @@ const port = process.env.PORT || 3000;
 // app.use(logger)
 
 
-let users = [
-    { id: '1', name: 'jd', email: 'jd@me.com', password: '123' },
-    { id: '2', name: 'paul', email: 'paul@me.com', password: '123' },
-    { id: '3', name: 'lois', email: 'lois@me.com', password: '123' },
-    { id: '4', name: 'sidney', email: 'sidney@me.com', password: '123' },
-    { id: '5', name: 'canton', email: 'canton@me.com', password: '123' },
-  ];
+
+
+
+//get all users
+//1st route, no middleware
+// router.get('/',(req,res)=>{
+//     //removed this:
+//     // res.status(200).send('My first Express Server');
+
+//     res.status(200).json({conformation: 'success', users})
+// });
+
+
+//get one user based on id 
+// app.get('/user/:id',(req, res)=>{
+// let foundUser =  users.filter((user)=>{
+//     if(user.id === req.params.id){
+//     return res.json({confirmation: 'success', user})
+//     }
+//   })
+//   if(!foundUser.length){
+//   return res.status(400).json({confirmation: 'fail', message: 'User Does Not Exist'})}
+// });
+
+// app.get(('/user/:id,(req, res) =>{
+//   users.filter((user)=>{
+//   if(user.id ===req.params.id){
+//     // return res.status(200).json({comfirmation: 'success', user});
+// return res.json({conformation: 'success', user})
+//   // }else{
+//   //   return res.status(400).send('User does not exist');
+//   })
+  //do i need this? questions that need answers
+  // res.send(req.params.id)
+// })
 
 
 
@@ -48,10 +107,3 @@ app.listen(port,()=>{
 console.log(`listening on ${port}`);
 });
 
-//1st route, no middleware
-app.get('/',(req,res)=>{
-    //removed this:
-    // res.status(200).send('My first Express Server');
-
-    res.status(200).json({conformation: 'success', users})
-});
