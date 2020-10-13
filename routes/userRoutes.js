@@ -7,8 +7,8 @@ router.get('/all-users',getAllUsers);
 
 
 //get one user based on id 
-const{createNewUser} = require('../controllers/userControllers.js')
-router.get('/single-user/:id',createNewUser);
+const{findOneUser} = require('../controllers/userControllers.js')
+router.get('/single-user/:id',findOneUser);
 
 const {updateUser} = require('../controllers/userControllers.js')
 router.put('/update-user/:id',updateUser);
@@ -23,4 +23,4 @@ router.delete('/delete-user/:id',deleteUser);
 
 
 
-module.exports=router
+module.exports=router;
