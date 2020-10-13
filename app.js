@@ -2,13 +2,13 @@
 //adding a package that is included in node
 const path = require('path');
 //bring in the package we downloaded
-const express=  require('express');
+const express = require('express');
 //needs to be invoked
 const app = express();
 //so other people can't see
-
+const getAllUsers = require('./controllers/userControllers')
 const router = express.Router();
-require('./.gitignore/node_modules/dotenv/types').config()
+require('dotenv').config();
 const morgan = require('morgan')
 const users = require('./models/usersArray')
 const logger = require('./middlewares/logger')
@@ -16,7 +16,9 @@ const timer = require('./middlewares/timer')
 app.use(timer)
 app.use(morgan('dev'))
 app.use(express.json());
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({
+  extended: false
+}))
 //look for a port in my env file, if not there, g  '3000'
 
 const userRoutes = require('./routes/userRoutes')
@@ -25,7 +27,7 @@ const port = process.env.PORT || 3000;
 //routes middleware
 app.use('/api/v1/users/', userRoutes)
 
-
+// app.use('a')
 
 //looking for static files
 // app.use(express.static(path.join(__dirname, 'public')));
@@ -97,13 +99,12 @@ app.use('/api/v1/users/', userRoutes)
 //   // }else{
 //   //   return res.status(400).send('User does not exist');
 //   })
-  //do i need this? questions that need answers
-  // res.send(req.params.id)
+//do i need this? questions that need answers
+// res.send(req.params.id)
 // })
 
 
 
-app.listen(port,()=>{
-console.log(`listening on ${port}`);
+app.listen(port, () => {
+  console.log(`listening on ${port}`);
 });
-

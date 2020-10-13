@@ -1,4 +1,4 @@
-const moment = require('../.gitignore/node_modules/moment/ts3.1-typings/moment')
+const moment = require('moment')
 
 function timer(req, res, next){
 
