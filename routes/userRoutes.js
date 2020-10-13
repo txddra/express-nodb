@@ -10,35 +10,12 @@ router.get('/all-users',getAllUsers);
 const{createNewUser} = require('../controllers/userControllers.js')
 router.get('/single-user/:id',createNewUser);
 
+const {updateUser} = require('../controllers/userControllers.js')
+router.put('/update-user/:id',updateUser);
 
 
-router.put('/update-user/:id',(req, res)=>{
-let updateUser = req.body;
-
-users.filter ((foundUser)=>{
-    if(foundUser.id === req.params.id){
-        foundUser.name = updateUser.name ? updateUser.name :foundUser.name;
-        foundUser.password= updateUser.password ? updateUser.password : foundUser.password;
-
-    }
-});
-//return array of users
-
-return res.status(200).json({message: 'User Updates', users})
-});
-
-
-
-router.delete('/delete-user/:id',(req, res)=>{
-    //filter user based on id parameter in 
-
-    let removeUser = users.filter((foundUser)=>{
-        return foundUser.id !== req.params.id
-    })
-
-    users = removeUser;
-    return res.status(200).json({ confirmation:'success', users});
-});
+const{deleteUser} = require('../controllers/userControllers.js')
+router.delete('/delete-user/:id',deleteUser);
 
 
 
