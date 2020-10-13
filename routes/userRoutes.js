@@ -2,19 +2,23 @@ const express = require('express');
 const router = express.Router();
 let users = require('../models/usersArray.js')
 
-const {getAllUsers} = require('../controllers/userControllers.js')
+
+
+const {getAllUsers, createUser, findOneUser, updateUser,deleteUser} = require('../controllers/userControllers')
+// const {getAllUsers} = require('../controllers/userControllers.js')
 router.get('/all-users',getAllUsers);
-
-
+//create user
+// const {createUser} = require('../controllers/userControllers.js')
+router.post('/create-user', createUser)
 //get one user based on id 
-const{findOneUser} = require('../controllers/userControllers.js')
+// const{findOneUser} = require('../controllers/userControllers.js')
 router.get('/single-user/:id',findOneUser);
-
-const {updateUser} = require('../controllers/userControllers.js')
+//update user
+// const {updateUser} = require('../controllers/userControllers.js')
 router.put('/update-user/:id',updateUser);
 
-
-const{deleteUser} = require('../controllers/userControllers.js')
+// delete user
+// const{deleteUser} = require('../controllers/userControllers.js')
 router.delete('/delete-user/:id',deleteUser);
 
 
@@ -23,4 +27,4 @@ router.delete('/delete-user/:id',deleteUser);
 
 
 
-module.exports=router;
+module.exports=router
